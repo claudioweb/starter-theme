@@ -1,0 +1,109 @@
+{
+	"name": "wordpress/starter",
+	"description": "Wordpress starter",
+	"homepage": "https://claudioweb.github.io/",
+	"authors": [
+		{
+			"name": "Claudio WEB",
+			"email": "claudiocfrabelo@gmail.com",
+			"homepage": "https://github.com/claudioweb"
+		}
+	],
+	"keywords": ["wordpress"],
+	"repositories":[
+		{
+			"type":"composer",
+			"url":"https://wpackagist.org"
+		},
+		{
+            "type": "package",
+            "package": {
+              "name": "wp-plugins/elementor",
+              "type": "wordpress-plugin",
+              "version": "dev-release/3.7.4",
+              "dist": {
+                "url": "https://downloads.wordpress.org/plugin/elementor.3.7.4.zip",
+                "type": "zip"
+              }
+            }
+        },
+		{
+			"type": "package",
+			"package": {
+			  "name": "yoast/wordpress-seo",
+			  "type": "wordpress-plugin",
+			  "version": "19.6.1",
+			  "dist": {
+				"url": "https://github.com/yoast/wordpress-seo/archive/refs/tags/19.6.1.zip",
+				"type": "zip"
+			  }
+			}
+		},
+		{
+			"type": "package",
+			"package": {
+			  "name": "wpackagist-plugin/advanced-custom-fields-pro",
+			  "type": "wordpress-plugin",
+			  "version": "5.9.5",
+			  "dist": {
+				"url": "https://connect.advancedcustomfields.com/index.php?v=5.9.5&p=pro&a=download&k=b3JkZXJfaWQ9NzgwNDN8dHlwZT1kZXZlbG9wZXJ8ZGF0ZT0yMDE2LTAzLTIzIDE3OjE2OjI2",
+				"type": "zip"
+			  }
+			}
+		},
+		{
+			"type": "package",
+			"package": {
+				"name": "wordpress/wordpress-importer",
+				"type": "wordpress-plugin",
+				"version": "dev-master",
+				"dist": {
+					"url": "https://github.com/wordpress/wordpress-importer/archive/master.zip",
+					"type": "zip"
+				}
+			}
+		},
+		{
+			"type": "package",
+			"package": {
+			  "name": "takayukister/contact-form-7",
+			  "type": "wordpress-plugin",
+			  "version": "5.6.3",
+			  "dist": {
+				"url": "https://github.com/takayukister/contact-form-7/archive/refs/tags/v5.6.3.zip",
+				"type": "zip"
+			  }
+			}
+		},
+		{
+			"type": "package",
+			"package": {
+			  "name": "deliciousbrains/wp-amazon-s3-and-cloudfront",
+			  "type": "wordpress-plugin",
+			  "version": "dev-master",
+			  "dist": {
+				"url": "https://github.com/deliciousbrains/wp-amazon-s3-and-cloudfront/archive/master.zip",
+				"type": "zip"
+			  }
+			}
+		}
+	],
+	"extra": {
+		"installer-paths": {
+			"./vendor/_all-plugins/{$name}/": ["type:wordpress-plugin"]
+		}
+	},
+	"require": {
+		"composer/installers": "dev-main",
+		"vlucas/phpdotenv": "4.1",
+		"yoast/wordpress-seo": "19.6.1",
+		"wp-plugins/elementor": "dev-release/3.7.4",
+		"hipdevteam/elementor-pro": "^3.2",
+		"wpackagist-plugin/advanced-custom-fields-pro": "5.9.5",
+		"wordpress/wordpress-importer": "dev-master",
+		"takayukister/contact-form-7": "5.6.3",
+		"deliciousbrains/wp-amazon-s3-and-cloudfront": "dev-master"
+	},
+	"minimum-stability": "dev",
+	"prefer-stable": true
+}

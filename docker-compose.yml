@@ -1,0 +1,68 @@
+version: "3.0"
+
+services:
+
+  db:
+    image: mariadb:10.5.9
+    container_name: db
+    restart: always
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_USER: '${DB_USER}'
+      MYSQL_ROOT_PASSWORD: '${DB_PASSWORD}'
+      MYSQL_DATABASE: '${DB_NAME}'
+
+  plugins:
+    image: composer:2.0
+    container_name: plugins
+    volumes:
+      - ./:/app
+    command: composer install --ignore-platform-reqs
+    
+  wordpress:
+    image: wordpress:6.0.2
+    container_name: wordpress
+    restart: always
+    ports:
+      - 80:80
+    environment:
+      WORDPRESS_DB_HOST: '${DB_HOST}'
+      WORDPRESS_DB_USER: '${DB_USER}'
+      WORDPRESS_DB_PASSWORD: '${DB_PASSWORD}'
+      WORDPRESS_DB_NAME: '${DB_NAME}'
+    volumes:
+      - ./vendor:/var/www/html/vendor
+      - ./.env:/var/www/html/.env
+      - ./wp-config.php:/var/www/html/wp-config.php
+      - ./sage:/var/www/html/wp-content/themes/sage
+      - ./vendor/_all-plugins:/var/www/html/wp-content/plugins
+    depends_on:
+      plugins:
+        condition: service_completed_successfully
+    
+  sage:
+    image: composer:2.0
+    container_name: sage
+    volumes_from:
+      - wordpress
+    working_dir: /var/www/html/wp-content/themes/sage
+    command: composer install --ignore-platform-reqs
+    depends_on:
+      - wordpress
+
+  yarn:
+    image: node:12
+    container_name: yarn
+    depends_on:
+      - db
+      - sage
+      - plugins
+      - wordpress
+    working_dir: /var/www/html/wp-content/themes/sage
+    command: bash -c "yarn && yarn start"
+    ports:
+      - 3000:3000
+      - 3001:3001
+    volumes_from:
+      - wordpress
